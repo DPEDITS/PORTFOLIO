@@ -48,7 +48,7 @@ function Navbarweb() {
             <div className='social-icon'>
                 <a href='#'><img src={navIcon1} alt="Linkedin"/></a>
                 <a href='#'><img src={navIcon2} alt="FaceBook"/></a>
-                <a href='instagram.com/dp_edits29'><img src={navIcon3} alt="Instagram"/></a>
+                <a href='https://www.instagram.com/dp_edits29/'><img src={navIcon3} alt="Instagram"/></a>
             </div>
             <button className='vvd' onClick={()=>console.log('connect')}><span>Let's Connect</span></button>
           </span>
