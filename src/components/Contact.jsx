@@ -26,9 +26,15 @@ const Contact = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setButtonText("Sending...");
-    const formData = new FormData(event.target);
+    const formData = new FormData();
 
+    // Append form data
     formData.append("access_key", "788c55f7-9965-44ab-92da-b039b1ad9b61");
+    formData.append("first_name", formDetails.firstName);
+    formData.append("last_name", formDetails.lastName);
+    formData.append("email", formDetails.email);
+    formData.append("phone", formDetails.phone);
+    formData.append("message", formDetails.message);
 
     const response = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
@@ -68,6 +74,7 @@ const Contact = () => {
                     value={formDetails.firstName} 
                     placeholder='First Name' 
                     onChange={(e) => onFormUpdate('firstName', e.target.value)} 
+                    name="first_name" // Make sure to add a name attribute
                   />
                 </Col>
                 <Col sm={6} className='px-1'>
@@ -76,6 +83,7 @@ const Contact = () => {
                     value={formDetails.lastName} 
                     placeholder='Last Name' 
                     onChange={(e) => onFormUpdate('lastName', e.target.value)} 
+                    name="last_name" // Make sure to add a name attribute
                   />
                 </Col>
                 <Col sm={6} className='px-1'>
@@ -84,6 +92,7 @@ const Contact = () => {
                     value={formDetails.email} 
                     placeholder='E-mail' 
                     onChange={(e) => onFormUpdate('email', e.target.value)} 
+                    name="email" // Make sure to add a name attribute
                   />
                 </Col>
                 <Col sm={6} className='px-1'>
@@ -92,6 +101,7 @@ const Contact = () => {
                     value={formDetails.phone} 
                     placeholder='+91 12345 67890' 
                     onChange={(e) => onFormUpdate('phone', e.target.value)} 
+                    name="phone" // Make sure to add a name attribute
                   />
                 </Col>
                 <Col>
@@ -100,6 +110,7 @@ const Contact = () => {
                     value={formDetails.message} 
                     placeholder='Message' 
                     onChange={(e) => onFormUpdate('message', e.target.value)}
+                    name="message" // Make sure to add a name attribute
                   ></textarea>
                   <button type='submit'><span>{buttonText}</span></button>
                 </Col>
