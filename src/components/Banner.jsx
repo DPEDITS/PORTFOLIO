@@ -46,7 +46,7 @@ export const Banner = () => {
                     <Col xs={12} md={6} xl={7}>
                         <span className="tagline">Welcome To My Portfolio</span>
                         <h1>{`Hi I'm Debashish , `}<span className="wrap">{text}</span></h1>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis libero enim cum possimus praesentium. Magni nostrum voluptatem facilis quidem obcaecati?</p>
+                        <p>I'm a versatile professional, combining creativity and technical skills as a video editor and web designer. Alongside my passion for crafting digital experiences, I'm an avid gamer, constantly exploring new realms.</p>
                         <button onClick={() => console.log('connect')}>Let's Connect <ArrowRightCircle size={25}/></button>
                     </Col>
                     <Col xs={12} md={6} xl={5}>
