@@ -42,7 +42,7 @@ function Navbarweb() {
           <Nav className="me-auto">
             <Nav.Link href="#home" className={activeLink=== 'home'?'active-navbar-link':'navbar-link'} onClick={()=>OnUpdateActiveLink('home')}>Home</Nav.Link>
             <Nav.Link href="#skills" className={activeLink=== 'skills'?'active-navbar-link':'navbar-link'} onClick={()=>OnUpdateActiveLink('skills')}>Skills</Nav.Link>
-            <Nav.Link href="#projects" className={activeLink=== 'projects'?'active-navbar-link':'navbar-link'} onClick={()=>OnUpdateActiveLink('projects')}>Projects</Nav.Link>
+            <Nav.Link href="#projects" className={activeLink=== 'projects'?'active-navbar-link':'navbar-link'} onClick={()=>OnUpdateActiveLink('projects')}>Achievments</Nav.Link>
           </Nav>
           <span className='navbar-text'>
             <div className='social-icon'>

@@ -17,8 +17,10 @@ const Projects = () => {
       <Container>
         <Row>
           <Col>
-            <h2>Projects</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam dolorum dignissimos necessitatibus? Doloribus modi, adipisci in quod blanditiis nesciunt earum.</p>
+            <h2>Achievments</h2>
+            <p>I proudly showcase my MERN stack certification, demonstrating 
+              my comprehensive knowledge in MongoDB, Express.js, React, and Node.js, 
+              and my commitment to mastering full-stack web development.</p>
             <Tab.Container id='projects-tab' defaultActiveKey="first">
             <Nav variant="pills" className='nav-pills mb-5 justify-content-center align-items-center' id='pills-tab'>
               <Nav.Item>
