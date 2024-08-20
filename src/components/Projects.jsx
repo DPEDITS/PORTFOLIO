@@ -1,27 +1,15 @@
 import React from 'react'
 import { Col, Container, Row,Tab } from 'react-bootstrap'
 import Nav from 'react-bootstrap/Nav';
-import projImg1 from '../assets/img/project-img1.png'
-import projImg2 from '../assets/img/project-img2.png'
-import projImg3 from '../assets/img/project-img3.png'
+import mernstack from '../assets/img/mern-stack.png'
 import ProjectsCard from './ProjectsCard'
 import colorSharp2 from '../assets/img/color-sharp2.png'
 const Projects = () => {
   const projects = [
     {
-      title: "Business Startup",
-      description: "Design And Development",
-      imgUrl: projImg1,
-    },
-    {
-      title: "Business Startup",
-      description: "Design And Development",
-      imgUrl: projImg2,
-    },
-    {
-      title: "Business Startup",
-      description: "Design And Development",
-      imgUrl: projImg3,
+      title: "Frontend Developer",
+      description: "MERN STACK",
+      imgUrl: mernstack,
     },
   ]
   return (
