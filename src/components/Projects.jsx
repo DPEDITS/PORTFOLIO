@@ -2,14 +2,21 @@ import React from 'react'
 import { Col, Container, Row,Tab } from 'react-bootstrap'
 import Nav from 'react-bootstrap/Nav';
 import mernstack from '../assets/img/mern-stack.png'
+import spotify from '../assets/img/spotifyclone.png'
+
 import ProjectsCard from './ProjectsCard'
 import colorSharp2 from '../assets/img/color-sharp2.png'
 const Projects = () => {
   const projects = [
     {
-      title: "Frontend Developer",
+      title: "CODE BEAT",
       description: "MERN STACK",
       imgUrl: mernstack,
+    },
+    {
+      title: "LET'S UPGRADE",
+      description: "SPOTIFY CLONE",
+      imgUrl: spotify,
     },
   ]
   return (
