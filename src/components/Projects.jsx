@@ -3,6 +3,7 @@ import { Col, Container, Row,Tab } from 'react-bootstrap'
 import Nav from 'react-bootstrap/Nav';
 import mernstack from '../assets/img/mern-stack.png'
 import spotify from '../assets/img/spotifyclone.png'
+import gdg from '../assets/img/GDG.png'
 
 import ProjectsCard from './ProjectsCard'
 import colorSharp2 from '../assets/img/color-sharp2.png'
@@ -17,6 +18,11 @@ const Projects = () => {
       title: "LET'S UPGRADE",
       description: "SPOTIFY CLONE",
       imgUrl: spotify,
+    },
+    {
+      title: "GOOGLE DEVELOPER GROUP",
+      description: "ORGANIZING COMMITTEE",
+      imgUrl: gdg,
     },
   ]
   return (
