@@ -40,6 +40,38 @@ PORTFOLIO/
 │   └── main.jsx
 ├── package.json
 └── README.md
-
+```
 ---
 
+## 📦 Getting Started
+
+Follow the steps below to run this project locally:
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/DPEDITS/PORTFOLIO.git
+cd PORTFOLIO
+```
+2. Install Dependencies
+```bash
+npm install
+```
+3. Start Development Server
+```bash
+npm run dev
+```
+Open your browser and visit: http://localhost:5173
+🧪 Pages Overview
+Home: Displays tournament CRUD section (Add Tournament, Entry Fee, etc.)
+About: Gaming-themed page showcasing user interests
+Login: Avatar-based login, integrated with Web3Forms API
+Signup: Neon-style gaming UI with form submission integrated with Web3Forms
+
+🔗 Useful Links
+🌐 GitHub Profile: DPEDITS
+📁 Portfolio Repository: PORTFOLIO
+
+🙋‍♂️ Author
+Debashish Parida
+🎮 Gamer | 🎬 Filmmaker | 💻 Developer
