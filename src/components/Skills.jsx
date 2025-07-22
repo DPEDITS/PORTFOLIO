@@ -33,7 +33,10 @@ const Skills = () => {
                     <Col>
                         <div className='skill-bx'>
                             <h2>Skills</h2>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aut dicta similique qui veniam et, porro necessitatibus quasi cum error ex.</p>
+                            <p>
+                                I have successfully completed training in the MERN stack and DevOps, 
+                                developing solid skills in full-stack web development, cloud deployment, and automation.
+                            </p>
                             <Carousel responsive={responsive} infinite={true} className='skill-slider'>
                                 <div className='item'>
                                     <img src={meter1} alt="Image"/>
@@ -41,7 +44,7 @@ const Skills = () => {
                                 </div>
                                 <div className='item'>
                                     <img src={meter2} alt="Image"/>
-                                    <h5>Brand Identity</h5>
+                                    <h5>DevOps & Cloud Automation</h5>
                                 </div>
                                 <div className='item'>
                                     <img src={meter3} alt="Image"/>
