@@ -26,4 +26,15 @@ Welcome to my **React.js** portfolio website! This project showcases my skills, 
 ---
 
 ## 📁 Project Structure
-
+PORTFOLIO/
+├── public/
+│ └── index.html
+├── src/
+│ ├── assets/ # Images, logos
+│ ├── components/ # Navbar, Footer, Banner, etc.
+│ ├── css/ # Stylesheets (navbar.css, signup.css, footer.css, etc.)
+│ ├── pages/ # Home.jsx, About.jsx, Login.jsx, Signup.jsx
+│ ├── App.jsx
+│ └── main.jsx
+├── package.json
+└── README.md
