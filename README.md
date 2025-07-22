@@ -67,9 +67,7 @@ npm run dev
 
 - **🏠 Home:** Displays tournament CRUD section (Add Tournament, Entry Fee, etc.)
 - **🎮 About:** Gaming-themed page showcasing user interests
-- **🔐 Login:** Avatar-based login, integrated with [Web3Forms](https://web3forms.com/) API
-- **📝 Signup:** Neon-style gaming UI with form submission using Web3Forms
-
+- **📬 Get in Touch:** Contact form section integrated with [Web3Forms](https://web3forms.com/) API for easy communication
 ---
 
 ## 🔗 Useful Links
