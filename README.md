@@ -62,16 +62,26 @@ npm install
 npm run dev
 ```
 Open your browser and visit: http://localhost:5173
-🧪 Pages Overview
-Home: Displays tournament CRUD section (Add Tournament, Entry Fee, etc.)
-About: Gaming-themed page showcasing user interests
-Login: Avatar-based login, integrated with Web3Forms API
-Signup: Neon-style gaming UI with form submission integrated with Web3Forms
+---
 
-🔗 Useful Links
-🌐 GitHub Profile: DPEDITS
-📁 Portfolio Repository: PORTFOLIO
+## 🧪 Pages Overview
 
-🙋‍♂️ Author
-Debashish Parida
+- **🏠 Home:** Displays tournament CRUD section (Add Tournament, Entry Fee, etc.)
+- **🎮 About:** Gaming-themed page showcasing user interests
+- **🔐 Login:** Avatar-based login, integrated with [Web3Forms](https://web3forms.com/) API
+- **📝 Signup:** Neon-style gaming UI with form submission using Web3Forms
+
+---
+
+## 🔗 Useful Links
+
+- 🌐 **GitHub Profile:** [DPEDITS](https://github.com/DPEDITS)  
+- 📁 **Portfolio Repository:** [PORTFOLIO](https://github.com/DPEDITS/PORTFOLIO)
+
+---
+
+## 🙋‍♂️ Author
+
+**Debashish Parida**  
 🎮 Gamer | 🎬 Filmmaker | 💻 Developer
+
