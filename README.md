@@ -61,7 +61,6 @@ npm install
 ```bash
 npm run dev
 ```
-Open your browser and visit: http://localhost:5173
 ---
 
 ## 🧪 Pages Overview
@@ -81,7 +80,9 @@ Open your browser and visit: http://localhost:5173
 ---
 
 ## 🙋‍♂️ Author
-
-**Debashish Parida**  
-🎮 Gamer | 🎬 Filmmaker | 💻 Developer
-
+**Debashish Parida** 
+### 📬 Connect with Me
+- 💼 [LinkedIn](https://www.linkedin.com/in/debashish-parida-421496276)  
+- 📷 [Instagram](https://www.instagram.com/@DPEDITS29)  
+- 📧 [Email Me](mailto:debashishparida75@gmail.com)  
+- 🌐 [Portfolio Website](devportfolio29.netlify.app) 
