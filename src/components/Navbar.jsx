@@ -50,7 +50,13 @@ function Navbarweb() {
                 <a href='https://www.facebook.com/debashish.parida.395'><img src={navIcon2} alt="FaceBook"/></a>
                 <a href='https://www.instagram.com/dp_edits29/'><img src={navIcon3} alt="Instagram"/></a>
             </div>
-            <button className='vvd' onClick={()=>console.log('connect')}><span>Let's Connect</span></button>
+            <button className='vvd' onClick={() => {
+  const section = document.querySelector('#connect');
+  if (section) section.scrollIntoView({ behavior: 'smooth' });
+}}>
+  <span>Let's Connect</span>
+</button>
+
           </span>
         </Navbar.Collapse>
         

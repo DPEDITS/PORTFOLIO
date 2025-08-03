@@ -49,7 +49,9 @@ export const Banner = () => {
                         <p>I'm a versatile professional, combining creativity and technical skills as a 
                             video editor and web designer. Alongside my passion for crafting 
                             digital experiences, I'm an avid gamer, constantly exploring new realms.</p>
-                        <button onClick={() => console.log('connect')}>Let's Connect <ArrowRightCircle size={25}/></button>
+                        <button onClick={() =>{const section = document.querySelector('#connect');
+                        if (section) section.scrollIntoView({ behavior: 'smooth' });
+                        }}>Let's Connect <ArrowRightCircle size={25}/></button>
                     </Col>
                     <Col xs={12} md={6} xl={5}>
                         <img src={headerImg} alt="Header Img" />
