@@ -54,7 +54,7 @@ export const Banner = () => {
                         }}>Let's Connect <ArrowRightCircle size={25}/></button>
                     </Col>
                     <Col xs={12} md={6} xl={5}>
-                        <img src={headerImg} alt="Header Img" />
+                    <img src={headerImg} alt="Debashish Parida - Web Developer and Video Editor" />
                     </Col>
                 </Row>
             </Container>
