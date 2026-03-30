@@ -6,7 +6,10 @@ import mernstack1 from '../assets/img/mern-stack1.png'
 import devops from '../assets/img/devops.png'
 import spotify from '../assets/img/spotifyclone.png'
 import gdg from '../assets/img/GDG.png'
+import websilicon from '../assets/img/websil.jpg'
+import sponsorsil from '../assets/img/sponsorsil.jpg'
 import quickchat from '../assets/img/quickchat.png'
+import fularani from '../assets/img/fularani.png'
 import ProjectsCard from './ProjectsCard'
 import colorSharp2 from '../assets/img/color-sharp2.png'
 const Projects = () => {
@@ -36,8 +39,24 @@ const Projects = () => {
       description: "ORGANIZING COMMITTEE",
       imgUrl: gdg,
     },
+    {
+      title: "Zygon X Noesis 2k26",
+      description: "Website Developer",
+      imgUrl: websilicon,
+    },
+    {
+      title: "Zygon X Noesis 2k26",
+      description: "Sponsorship",
+      imgUrl: sponsorsil,
+    },
   ]  
   const projects = [
+    {
+      title: "Fularani Foundation",
+      description: "NGO Website",
+      imgUrl: fularani,
+      url: "https://www.fularanifoundation.org"
+    },
     {
       title: "Quick Chat",
       description: "Mern Stack Chat Application",
