@@ -3,7 +3,7 @@ const OFFLINE_URL = '/offline.html';
 
 const assetsToCache = [
   OFFLINE_URL,
-  '/vite.svg',
+  '/logo.png',
 ];
 
 self.addEventListener('install', (event) => {

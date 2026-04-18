@@ -505,64 +505,43 @@
 
   <div class="container">
     <div class="logo-wrapper">
-      <img src="/vite.svg" alt="Debashish Parida" />
+      <img src="/logo.png" alt="Debashish Parida" />
     </div>
 
     <div class="buddy-wrapper" id="buddy">
       <div class="buddy-body">
-        <svg class="buddy-svg" viewBox="0 0 160 200" fill="none" xmlns="http://www.w3.org/2000/svg" id="wireMascot">
-          <!-- Body / Torso -->
-          <rect x="45" y="110" width="70" height="70" rx="20" fill="#7c3aed" opacity="0.15" />
-          <rect x="45" y="110" width="70" height="70" rx="20" fill="none" stroke="#7c3aed" stroke-width="1.5" stroke-opacity="0.1" />
+        <svg class="buddy-svg" viewBox="0 0 160 200" fill="none" xmlns="http://www.w3.org/2000/svg" id="droidMascot">
+          <!-- Antennas -->
+          <line x1="60" y1="40" x2="50" y2="25" stroke="var(--primary)" stroke-width="3" stroke-linecap="round" />
+          <line x1="100" y1="40" x2="110" y2="25" stroke="var(--primary)" stroke-width="3" stroke-linecap="round" />
           
           <!-- Head -->
-          <circle cx="80" cy="75" r="45" fill="url(#skinGrad)" />
+          <path d="M 35 85 A 45 45 0 0 1 125 85 Z" fill="var(--secondary)" opacity="0.9" />
+          <path d="M 35 85 A 45 45 0 0 1 125 85 Z" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-opacity="0.2" />
           
-          <!-- Arms holding wires -->
-          <!-- Left Arm -->
-          <path d="M 45 130 Q 15 130 15 100" stroke="#7c3aed" stroke-width="8" stroke-linecap="round" fill="none" class="arm-left" />
-          <!-- Right Arm -->
-          <path d="M 115 130 Q 145 130 145 100" stroke="#7c3aed" stroke-width="8" stroke-linecap="round" fill="none" class="arm-right" />
+          <!-- Body -->
+          <rect x="35" y="90" width="90" height="80" rx="10" fill="var(--secondary)" opacity="0.9" />
+          <rect x="35" y="90" width="90" height="80" rx="10" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-opacity="0.1" />
+          
+          <!-- Arms -->
+          <rect x="15" y="95" width="15" height="60" rx="7.5" fill="var(--secondary)" opacity="0.8" />
+          <rect x="130" y="95" width="15" height="60" rx="7.5" fill="var(--secondary)" opacity="0.8" />
+          
+          <!-- Legs -->
+          <rect x="50" y="170" width="15" height="25" rx="7.5" fill="var(--secondary)" opacity="0.8" />
+          <rect x="95" y="170" width="15" height="25" rx="7.5" fill="var(--secondary)" opacity="0.8" />
 
-          <!-- Wires -->
-          <g id="wireGroup">
-            <!-- Left Wire (Draggable) -->
-            <path d="M 15 100 L 15 65 Q 15 40 45 40" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round" fill="none" id="leftWirePath" />
-            <g id="leftPlugGroup" style="cursor: grab;" class="draggable-plug">
-              <circle cx="45" cy="40" r="22" fill="rgba(124, 58, 237, 0.08)" />
-              <circle cx="45" cy="40" r="8" fill="#ec4899" id="leftPlug" />
-            </g>
-            
-            <!-- Right Wire (Draggable) -->
-            <path d="M 145 100 L 145 65 Q 145 40 115 40" stroke="#f1f5f9" stroke-width="4" stroke-linecap="round" fill="none" id="rightWirePath" />
-            <g id="rightPlugGroup" style="cursor: grab;" class="draggable-plug">
-              <circle cx="115" cy="40" r="22" fill="rgba(236, 72, 153, 0.08)" />
-              <circle cx="115" cy="40" r="8" fill="#ec4899" id="rightPlug" />
-            </g>
-          </g>
-
-          <!-- Interaction Prompt -->
-          <text x="80" y="25" text-anchor="middle" fill="#7c3aed" font-size="10" font-weight="900" opacity="0.6" id="promptText">DRAG TO JOIN</text>
-
-          <!-- Spark Effect (Hidden by default) -->
-          <g id="sparkGroup" opacity="0">
-            <path d="M 80 40 L 80 20 M 80 40 L 100 40 M 80 40 L 60 40 M 80 40 L 80 60 M 80 40 L 95 25 M 80 40 L 65 55" stroke="#ec4899" stroke-width="3" stroke-linecap="round" />
-            <circle cx="80" cy="40" r="8" fill="#ec4899" opacity="0.5" />
-          </g>
-
-          <defs>
-            <radialGradient id="skinGrad" cx="0.5" cy="0.3" r="0.7">
-              <stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f5faff"/>
-            </radialGradient>
-          </defs>
+          <!-- Interaction Prompt (Repositioned) -->
+          <text x="80" y="135" text-anchor="middle" fill="var(--primary)" font-size="10" font-weight="900" opacity="0.4" id="promptText">TAP ME</text>
         </svg>
 
-        <div class="eyes-container">
+        <div class="eyes-container" style="top: 55px;">
           <div class="eye" id="leftEye"><div class="pupil" id="leftPupil"></div><div class="blink-overlay"></div></div>
           <div class="eye" id="rightEye"><div class="pupil" id="rightPupil"></div><div class="blink-overlay"></div></div>
         </div>
-        <div class="cheek left"></div><div class="cheek right"></div>
-        <div class="mouth"></div>
+        <div class="cheek left" style="top: 75px; left: 35px;"></div>
+        <div class="cheek right" style="top: 75px; right: 35px;"></div>
+        <div class="mouth" style="top: 80px;"></div>
       </div>
       <div class="buddy-shadow"></div>
     </div>
@@ -744,98 +723,14 @@
       }
     }
 
-    // ===== MULTI-DRAG WIRES =====
-    const wireMascot = document.getElementById('wireMascot');
-    const sparkGroup = document.getElementById('sparkGroup');
     const promptText = document.getElementById('promptText');
-    const leftPlugGroup = document.getElementById('leftPlugGroup');
-    const rightPlugGroup = document.getElementById('rightPlugGroup');
-    const leftWirePath = document.getElementById('leftWirePath');
-    const rightWirePath = document.getElementById('rightWirePath');
-
     let isConnected = false;
-    let dragTarget = null;
-    
-    const plugState = {
-      left: { x: 45, y: 40 },
-      right: { x: 115, y: 40 }
-    };
 
-    function getMousePosition(evt) {
-      const CTM = wireMascot.getScreenCTM();
-      if (evt.touches) evt = evt.touches[0];
-      return {
-        x: (evt.clientX - CTM.e) / CTM.a,
-        y: (evt.clientY - CTM.f) / CTM.d
-      };
-    }
-
-    [ {el: leftPlugGroup, side: 'left'}, {el: rightPlugGroup, side: 'right'} ].forEach(plug => {
-      plug.el.addEventListener('mousedown', () => dragTarget = plug.side);
-      plug.el.addEventListener('touchstart', (e) => {
-        dragTarget = plug.side;
-        e.preventDefault();
-      }, {passive: false});
-    });
-
-    window.addEventListener('mousemove', handleMultiDrag);
-    window.addEventListener('touchmove', handleMultiDrag, {passive: false});
-    window.addEventListener('mouseup', () => dragTarget = null);
-    window.addEventListener('touchend', () => dragTarget = null);
-
-    function handleMultiDrag(e) {
-      if (!dragTarget || isConnected) return;
-      
-      const pos = getMousePosition(e);
-      const nx = Math.max(10, Math.min(150, pos.x));
-      const ny = Math.max(10, Math.min(130, pos.y));
-      
-      // Update State
-      plugState[dragTarget] = { x: nx, y: ny };
-      
-      // Update Visuals
-      const group = dragTarget === 'left' ? leftPlugGroup : rightPlugGroup;
-      const path = dragTarget === 'left' ? leftWirePath : rightWirePath;
-      const startX = dragTarget === 'left' ? 15 : 145;
-
-      [...group.children].forEach(c => {
-        c.setAttribute('cx', nx);
-        c.setAttribute('cy', ny);
-      });
-      path.setAttribute('d', `M ${startX} 100 L ${startX} 65 Q ${startX} ${ny} ${nx} ${ny}`);
-
-      // Distance check between the two plugs
-      const dx = plugState.left.x - plugState.right.x;
-      const dy = plugState.left.y - plugState.right.y;
-      const dist = Math.sqrt(dx*dx + dy*dy);
-      
-      if (dist < 30) {
-        snapBoth();
-      }
-    }
-
-    function snapBoth() {
+    function connectDroid() {
       if (isConnected) return;
       isConnected = true;
-      dragTarget = null;
-
-      const midX = (plugState.left.x + plugState.right.x) / 2;
-      const midY = (plugState.left.y + plugState.right.y) / 2;
-
-      // Lock positions
-      [ {g: leftPlugGroup, p: leftWirePath, sx: 15}, {g: rightPlugGroup, p: rightWirePath, sx: 145} ].forEach(set => {
-        [...set.g.children].forEach(c => {
-          c.setAttribute('cx', midX);
-          c.setAttribute('cy', midY);
-        });
-        set.p.setAttribute('d', `M ${set.sx} 100 L ${set.sx} 65 Q ${set.sx} ${midY} ${midX} ${midY}`);
-      });
-
-      // Spark
-      sparkGroup.setAttribute('transform', `translate(${midX - 80}, ${midY - 40})`);
-      sparkGroup.classList.add('anim-spark');
-      buddyWrapper.classList.add('tapped', 'surprised');
       
+      buddyWrapper.classList.add('tapped', 'happy');
       promptText.textContent = "CONNECTED!";
       promptText.setAttribute('fill', '#4caf50');
 
@@ -846,17 +741,19 @@
     let tapCount = 0;
     const expressions = ['happy', 'surprised', 'dizzy'];
     buddyWrapper.addEventListener('click', (e) => {
-      if (dragTarget || isConnected) return;
-      const rect = buddyWrapper.getBoundingClientRect();
-      const relY = (e.clientY - rect.top) / rect.height;
-      if (relY < 0.3) return;
-
+      if (isConnected) return;
+      
       const exp = expressions[tapCount++ % expressions.length];
       buddyWrapper.classList.remove('happy', 'surprised', 'dizzy', 'tapped');
       void buddyWrapper.offsetWidth; 
       buddyWrapper.classList.add('tapped', exp);
       spawnEmojiBurst(exp);
-      setTimeout(() => buddyWrapper.classList.remove('tapped', exp), 800);
+      
+      if (tapCount > 2) {
+        connectDroid();
+      } else {
+        setTimeout(() => buddyWrapper.classList.remove('tapped', exp), 800);
+      }
     });
 
     // Particles
