@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://devportfolio29.netlify.app
+
+Sitemap: https://devportfolio29.netlify.app/sitemap.xml

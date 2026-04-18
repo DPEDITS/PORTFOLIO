@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Offline | Debashish Parida</title>
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <style>
+    /* System fonts only — Google Fonts can't load when offline */
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #7c3aed;
+      --primary-light: rgba(124, 58, 237, 0.1);
+      --primary-glow: rgba(124, 58, 237, 0.15);
+      --secondary: #f1f5f9;
+      --accent: #ec4899;
+      --accent-glow: rgba(236, 72, 153, 0.15);
+      --bg: #0a0a0f;
+      --muted: #12121a;
+      --muted-fg: #94a3b8;
+      --border: rgba(255, 255, 255, 0.08);
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--secondary);
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+      padding: 20px;
+      user-select: none; /* Prevent text selection during drag */
+      -webkit-user-select: none;
+    }
+
+    /* Subtle background pattern */
+    .bg-pattern {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(circle at 1px 1px, rgba(124, 58, 237, 0.05) 1px, transparent 0);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    /* Soft glow accents */
+    .bg-glow {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+    }
+
+    .bg-glow-primary {
+      top: -150px;
+      right: -100px;
+      width: 500px;
+      height: 500px;
+      background: var(--primary);
+      opacity: 0.06;
+    }
+
+    .bg-glow-accent {
+      bottom: -150px;
+      left: -100px;
+      width: 400px;
+      height: 400px;
+      background: var(--accent);
+      opacity: 0.06;
+    }
+
+    /* Floating particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      animation: particleFloat linear infinite;
+    }
+
+    .particle.purple {
+      background: rgba(124, 58, 237, 0.25);
+    }
+
+    .particle.pink {
+      background: rgba(236, 72, 153, 0.3);
+    }
+
+    @keyframes particleFloat {
+      0% {
+        transform: translateY(100vh) scale(0);
+        opacity: 0;
+      }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% {
+        transform: translateY(-10vh) scale(1);
+        opacity: 0;
+      }
+    }
+
+    /* Main container */
+    .container {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 25px;
+      padding: 40px 20px;
+      width: 100%;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    /* Logo */
+    .logo-wrapper {
+      animation: fadeInDown 0.6s ease-out;
+      margin-bottom: 10px;
+    }
+
+    .logo-wrapper img {
+      height: 48px;
+      max-width: 100%;
+      width: auto;
+      object-fit: contain;
+    }
+
+    /* Buddy Character - Optimized responsiveness to prevent overlap */
+    .buddy-wrapper {
+      position: relative;
+      width: 200px;
+      height: 240px;
+      animation: buddyFloat 3s ease-in-out infinite;
+      margin: 10px 0;
+      flex-shrink: 0;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @keyframes buddyFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+    }
+
+    .buddy-shadow {
+      position: absolute;
+      bottom: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 110px;
+      height: 14px;
+      background: radial-gradient(ellipse, rgba(124, 58, 237, 0.15), transparent);
+      border-radius: 50%;
+      animation: shadowPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes shadowPulse {
+      0%, 100% { width: 110px; opacity: 0.6; }
+      50% { width: 80px; opacity: 0.3; }
+    }
+
+    .buddy-body {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .buddy-svg {
+      width: 160px;
+      height: 200px;
+    }
+
+    /* Fixed positioning to stay within body */
+    .eyes-container {
+      position: absolute;
+      top: 58px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 24px;
+    }
+
+    .eye {
+      width: 34px;
+      height: 40px;
+      background: #ffffff;
+      border-radius: 50% 50% 50% 50% / 55% 55% 45% 45%;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 
+        inset 0 2px 8px rgba(0,0,0,0.08),
+        0 0 15px rgba(124, 58, 237, 0.2);
+      border: 1.5px solid rgba(124, 58, 237, 0.1);
+    }
+
+    .pupil {
+      width: 15px;
+      height: 17px;
+      background: radial-gradient(circle at 40% 40%, #1a1a1a, #0a0a1a);
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: transform 0.08s ease-out;
+    }
+
+    .pupil::after {
+      content: '';
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      top: 3px;
+      left: 3px;
+    }
+
+    .blink-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,1) 40%,
+        rgba(255,255,255,1) 60%,
+        rgba(255,255,255,0) 100%
+      );
+      border-radius: 50%;
+      transform: scaleY(0);
+      animation: blink 4s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 94%, 100% { transform: scaleY(0); }
+      96% { transform: scaleY(1); }
+      98% { transform: scaleY(0); }
+    }
+
+    .mouth {
+      position: absolute;
+      top: 110px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 16px;
+      height: 6px;
+      border-bottom: 2.5px solid var(--primary);
+      border-radius: 0 0 50% 50%;
+      opacity: 0.5;
+    }
+
+    .cheek {
+      position: absolute;
+      top: 102px;
+      width: 16px;
+      height: 9px;
+      background: rgba(236, 72, 153, 0.2);
+      border-radius: 50%;
+    }
+
+    .cheek.left { left: 24px; }
+    .cheek.right { right: 24px; }
+
+
+    /* Status Badge */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 20px;
+      background: var(--primary-light);
+      border: 1px solid rgba(0, 102, 204, 0.15);
+      border-radius: 980px;
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--primary);
+      animation: fadeInDown 0.8s ease-out;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: statusBlink 1.5s ease-in-out infinite;
+      box-shadow: 0 0 8px rgba(255, 194, 14, 0.5);
+    }
+
+    @keyframes statusBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* Title */
+    .title {
+      font-size: 52px;
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      animation: fadeInUp 0.6s ease-out 0.2s both;
+    }
+
+    .title-top {
+      display: block;
+      color: var(--secondary);
+    }
+
+    .title-bottom {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      padding: 4px 16px;
+      transform: rotate(-1deg);
+      margin-top: 6px;
+    }
+
+    /* Description */
+    .description {
+      font-size: 15px;
+      color: var(--muted-fg);
+      max-width: 420px;
+      line-height: 1.5;
+      font-weight: 700;
+      animation: fadeInUp 0.6s ease-out 0.4s both;
+    }
+
+    /* Retry Button */
+    .retry-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 36px;
+      background: var(--accent);
+      color: var(--secondary);
+      border: none;
+      border-radius: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 12px 30px rgba(255, 194, 14, 0.3);
+      animation: fadeInUp 0.6s ease-out 0.6s both;
+    }
+
+    .retry-btn:hover {
+      background: #e6af00;
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(255, 194, 14, 0.4);
+    }
+
+    .retry-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Footer text */
+    .footer-text {
+      position: absolute;
+      bottom: 24px;
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: 0.15em;
+      color: rgba(26, 26, 26, 0.15);
+      text-transform: uppercase;
+      z-index: 5;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== RESPONSIVE FIXES ===== */
+    @media (max-width: 768px) {
+      .container { gap: 20px; padding-top: 20px; }
+      .title { font-size: 42px; }
+      .buddy-wrapper { width: 160px; height: 200px; }
+      .buddy-svg { width: 140px; height: 175px; }
+      .eyes-container { top: 52px; gap: 20px; }
+      .eye { width: 30px; height: 36px; }
+      .mouth { top: 100px; }
+      .cheek { top: 92px; }
+    }
+
+    @media (max-width: 480px) {
+      .container { gap: 10px; padding-top: 5px; }
+      .title { font-size: 30px; }
+      .title-bottom { padding: 4px 10px; }
+      .buddy-wrapper { width: 280px; height: 240px; margin: 0; }
+      .buddy-svg { width: 260px; height: 320px; }
+      .eyes-container { top: 68px; gap: 28px; }
+      .eye { width: 40px; height: 48px; }
+      .pupil { width: 14px; height: 18px; }
+      .mouth { top: 110px; width: 18px; }
+      .cheek { top: 102px; width: 18px; height: 10px; }
+      .cheek.left { left: 24px; }
+      .cheek.right { right: 24px; }
+      .footer-text { bottom: 8px; }
+    }
+
+    /* Small height screens - Prevents stacking overlap */
+    @media (max-height: 700px) {
+      .container { gap: 12px; padding: 15px; }
+      .logo-wrapper { margin-bottom: 0; }
+      .buddy-wrapper { width: 110px; height: 140px; margin: 0; }
+      .buddy-svg { width: 90px; height: 120px; }
+      .title { font-size: 28px; }
+      .description { font-size: 13px; max-width: 320px; }
+      .retry-btn { padding: 10px 24px; font-size: 13px; }
+      /* Scale eyes for tiny version */
+      .eyes-container { top: 36px; gap: 14px; }
+      .eye { width: 22px; height: 26px; }
+      .mouth { top: 68px; }
+      .cheek { top: 64px; }
+    }
+
+    /* Interaction/Anim classes from original */
+    .buddy-wrapper.tapped { animation: buddyBounce 0.5s ease-out; }
+    @keyframes buddyBounce {
+      0% { transform: scale(1) translateY(0); }
+      20% { transform: scale(0.9) translateY(5px); }
+      50% { transform: scale(1.15) translateY(-20px); }
+      70% { transform: scale(0.95) translateY(-5px); }
+      100% { transform: scale(1) translateY(0); }
+    }
+    .buddy-wrapper.surprised .mouth { width: 12px; height: 12px; border: 2.5px solid var(--primary); border-radius: 50%; opacity: 0.6; }
+    .buddy-wrapper.happy .mouth { width: 24px; height: 10px; border-bottom: 3px solid var(--accent); border-radius: 0 0 50% 50%; opacity: 0.7; }
+    .buddy-wrapper.dizzy .pupil { animation: dizzyEyes 0.6s ease-in-out; }
+    @keyframes dizzyEyes {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+    .floating-heart, .floating-emoji { position: absolute; pointer-events: none; z-index: 50; }
+    .floating-heart { animation: heartFloat 1s ease-out forwards; font-size: 20px; }
+    @keyframes heartFloat {
+      0% { opacity: 1; transform: translateY(0) scale(0.5); }
+      100% { opacity: 0; transform: translateY(-80px) scale(0.8); }
+    }
+    .floating-emoji { font-size: 18px; animation: emojiBurst 0.8s ease-out forwards; }
+    @keyframes emojiBurst {
+      0% { opacity: 1; transform: translate(0, 0) scale(0.3); }
+      100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1); }
+    }
+    .shake-hint {
+      position: fixed; bottom: 50px; left: 50%; transform: translateX(-50%);
+      display: none; align-items: center; gap: 8px; padding: 10px 20px;
+      background: var(--secondary); color: #fff; border-radius: 980px;
+      font-size: 11px; font-weight: 800; text-transform: uppercase;
+      z-index: 100; opacity: 0; animation: shakeHintIn 0.4s ease-out forwards;
+    }
+    .shake-hint.visible { display: flex; }
+    @keyframes shakeHintIn { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+  </style>
+</head>
+<body>
+  <div class="bg-pattern"></div>
+  <div class="bg-glow bg-glow-primary"></div>
+  <div class="bg-glow bg-glow-accent"></div>
+  <div class="particles" id="particles"></div>
+
+  <div class="container">
+    <div class="logo-wrapper">
+      <img src="/vite.svg" alt="Debashish Parida" />
+    </div>
+
+    <div class="buddy-wrapper" id="buddy">
+      <div class="buddy-body">
+        <svg class="buddy-svg" viewBox="0 0 160 200" fill="none" xmlns="http://www.w3.org/2000/svg" id="wireMascot">
+          <!-- Body / Torso -->
+          <rect x="45" y="110" width="70" height="70" rx="20" fill="#7c3aed" opacity="0.15" />
+          <rect x="45" y="110" width="70" height="70" rx="20" fill="none" stroke="#7c3aed" stroke-width="1.5" stroke-opacity="0.1" />
+          
+          <!-- Head -->
+          <circle cx="80" cy="75" r="45" fill="url(#skinGrad)" />
+          
+          <!-- Arms holding wires -->
+          <!-- Left Arm -->
+          <path d="M 45 130 Q 15 130 15 100" stroke="#7c3aed" stroke-width="8" stroke-linecap="round" fill="none" class="arm-left" />
+          <!-- Right Arm -->
+          <path d="M 115 130 Q 145 130 145 100" stroke="#7c3aed" stroke-width="8" stroke-linecap="round" fill="none" class="arm-right" />
+
+          <!-- Wires -->
+          <g id="wireGroup">
+            <!-- Left Wire (Draggable) -->
+            <path d="M 15 100 L 15 65 Q 15 40 45 40" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round" fill="none" id="leftWirePath" />
+            <g id="leftPlugGroup" style="cursor: grab;" class="draggable-plug">
+              <circle cx="45" cy="40" r="22" fill="rgba(124, 58, 237, 0.08)" />
+              <circle cx="45" cy="40" r="8" fill="#ec4899" id="leftPlug" />
+            </g>
+            
+            <!-- Right Wire (Draggable) -->
+            <path d="M 145 100 L 145 65 Q 145 40 115 40" stroke="#f1f5f9" stroke-width="4" stroke-linecap="round" fill="none" id="rightWirePath" />
+            <g id="rightPlugGroup" style="cursor: grab;" class="draggable-plug">
+              <circle cx="115" cy="40" r="22" fill="rgba(236, 72, 153, 0.08)" />
+              <circle cx="115" cy="40" r="8" fill="#ec4899" id="rightPlug" />
+            </g>
+          </g>
+
+          <!-- Interaction Prompt -->
+          <text x="80" y="25" text-anchor="middle" fill="#7c3aed" font-size="10" font-weight="900" opacity="0.6" id="promptText">DRAG TO JOIN</text>
+
+          <!-- Spark Effect (Hidden by default) -->
+          <g id="sparkGroup" opacity="0">
+            <path d="M 80 40 L 80 20 M 80 40 L 100 40 M 80 40 L 60 40 M 80 40 L 80 60 M 80 40 L 95 25 M 80 40 L 65 55" stroke="#ec4899" stroke-width="3" stroke-linecap="round" />
+            <circle cx="80" cy="40" r="8" fill="#ec4899" opacity="0.5" />
+          </g>
+
+          <defs>
+            <radialGradient id="skinGrad" cx="0.5" cy="0.3" r="0.7">
+              <stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f5faff"/>
+            </radialGradient>
+          </defs>
+        </svg>
+
+        <div class="eyes-container">
+          <div class="eye" id="leftEye"><div class="pupil" id="leftPupil"></div><div class="blink-overlay"></div></div>
+          <div class="eye" id="rightEye"><div class="pupil" id="rightPupil"></div><div class="blink-overlay"></div></div>
+        </div>
+        <div class="cheek left"></div><div class="cheek right"></div>
+        <div class="mouth"></div>
+      </div>
+      <div class="buddy-shadow"></div>
+    </div>
+
+    <!-- Style for wire joining animation -->
+    <style>
+      #wireGroup.connected #leftWire { d: path("M 15 100 L 15 60 Q 15 40 80 40"); transition: d 0.3s ease-out; }
+      #wireGroup.connected #rightWire { d: path("M 145 100 L 145 60 Q 145 40 80 40"); transition: d 0.3s ease-out; }
+      #wireGroup.connected #leftPlug { cx: 80; cy: 40; transition: all 0.3s ease-out; }
+      #wireGroup.connected #rightPlug { cx: 80; cy: 40; transition: all 0.3s ease-out; }
+      
+      @keyframes spark {
+        0% { transform: scale(0); opacity: 0; }
+        50% { transform: scale(1.5); opacity: 1; }
+        100% { transform: scale(2); opacity: 0; }
+      }
+      .anim-spark { animation: spark 0.4s ease-out forwards; transform-origin: center; }
+    </style>
+
+    <div class="status-badge">
+      <div class="status-dot"></div>
+      <span>Connection Lost</span>
+    </div>
+
+    <h1 class="title">
+      <span class="title-top">No Internet</span>
+      <span class="title-bottom">Connection</span>
+    </h1>
+
+
+
+    <div class="buttons-row">
+      <button class="retry-btn" id="retryBtn" onclick="retryConnection()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="23 4 23 10 17 10"></polyline>
+          <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+        </svg>
+        Retry Connection
+      </button>
+    </div>
+  </div>
+
+  <div class="shake-hint" id="shakeHint">Retrying connection...</div>
+  <div class="footer-text">Debashish Parida &bull; Web Developer Portfolio</div>
+
+  <script>
+    // Get the original page URL from the query parameter
+    function getReturnUrl() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('returnTo') || '/';
+    }
+
+    function retryConnection() {
+      const returnUrl = getReturnUrl();
+      window.location.href = returnUrl;
+    }
+
+    const leftPupil = document.getElementById('leftPupil');
+    const rightPupil = document.getElementById('rightPupil');
+    const leftEye = document.getElementById('leftEye');
+    const rightEye = document.getElementById('rightEye');
+    const buddyWrapper = document.getElementById('buddy');
+    const isMobile = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+    function updateEyes(clientX, clientY) {
+      [leftEye, rightEye].forEach((eye, i) => {
+        const pupil = i === 0 ? leftPupil : rightPupil;
+        const rect = eye.getBoundingClientRect();
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 2;
+        const angle = Math.atan2(clientY - y, clientX - x);
+        const dist = Math.min(Math.hypot(clientX - x, clientY - y) / 15, 7);
+        pupil.style.transform = `translate(calc(-50% + ${Math.cos(angle)*dist}px), calc(-50% + ${Math.sin(angle)*dist}px))`;
+      });
+    }
+
+    // Direct offset update for Gyro/accelerometer
+    function updateEyesDirect(offsetX, offsetY) {
+      const maxMove = 7;
+      const px = offsetX * maxMove;
+      const py = offsetY * maxMove;
+      leftPupil.style.transform = `translate(calc(-50% + ${px}px), calc(-50% + ${py}px))`;
+      rightPupil.style.transform = `translate(calc(-50% + ${px}px), calc(-50% + ${py}px))`;
+    }
+
+    // ===== GYROSCOPE (Mobile Tilt) =====
+    let gyroRequested = false;
+    let hasGyroData = false;
+
+    function initGyro() {
+      if (gyroRequested) return;
+      if (window.DeviceOrientationEvent && typeof window.DeviceOrientationEvent.requestPermission === 'function') {
+        window.DeviceOrientationEvent.requestPermission().then(state => {
+          if (state === 'granted') window.addEventListener('deviceorientation', handleGyro);
+        }).catch(err => console.log(err));
+      } else {
+        window.addEventListener('deviceorientation', handleGyro);
+      }
+      gyroRequested = true;
+    }
+
+    function handleGyro(e) {
+      // Guard against events with no actual orientation data (Desktop browsers sometimes fire these)
+      if (e.gamma == null && e.beta == null) return;
+      
+      hasGyroData = true;
+      const gamma = e.gamma || 0;
+      const beta = e.beta || 0;
+      
+      const x = Math.max(-1, Math.min(1, gamma / 30));
+      const y = Math.max(-1, Math.min(1, (beta - 40) / 30));
+      
+      updateEyesDirect(x, y);
+      // Subtle body tilt
+      buddyWrapper.style.transform = `rotateY(${x * 12}deg) rotateX(${y * -8}deg)`;
+    }
+
+    if (isMobile) {
+      document.addEventListener('touchstart', initGyro, { once: true });
+    } else {
+      initGyro();
+    }
+
+    // ===== VISUAL INTERACTIONS =====
+    const bodyEl = document.body;
+    const bgPattern = document.querySelector('.bg-pattern');
+    
+    // Magnetic Background & Buddy Lean
+    function handleMagneticEffect(x, y) {
+      const moveX = (x / window.innerWidth - 0.5) * 20;
+      const moveY = (y / window.innerHeight - 0.5) * 20;
+      
+      bgPattern.style.transform = `translate(${moveX}px, ${moveY}px)`;
+      
+      // Only tilt buddy if not being tilted by gyro
+      if (!hasGyroData) {
+        buddyWrapper.style.transform = `rotateY(${moveX}deg) rotateX(${moveY * -1}deg)`;
+      }
+    }
+
+    document.addEventListener('mousemove', (e) => {
+      if (!hasGyroData) updateEyes(e.clientX, e.clientY);
+      handleMagneticEffect(e.clientX, e.clientY);
+    });
+
+    document.addEventListener('touchmove', (e) => {
+      if (hasGyroData) return;
+      const t = e.touches[0];
+      updateEyes(t.clientX, t.clientY);
+      handleMagneticEffect(t.clientX, t.clientY);
+    }, {passive: true});
+
+    // ===== EMOJI BURSTS =====
+    const emojiMap = {
+      happy: ['✨', '🚀', '💻', '😊'],
+      surprised: ['😲', '❓', '❗', '⚡'],
+      dizzy: ['😵‍💫', '🌀', '💫', '💢']
+    };
+
+    function spawnEmojiBurst(type) {
+      const emojis = emojiMap[type];
+      for (let i = 0; i < 8; i++) {
+        const span = document.createElement('span');
+        span.className = 'floating-emoji';
+        span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        
+        const angle = Math.random() * Math.PI * 2;
+        const dist = 60 + Math.random() * 60;
+        const tx = Math.cos(angle) * dist;
+        const ty = Math.sin(angle) * dist - 50;
+        
+        span.style.setProperty('--tx', `${tx}px`);
+        span.style.setProperty('--ty', `${ty}px`);
+        span.style.left = '50%';
+        span.style.top = '40%';
+        
+        buddyWrapper.appendChild(span);
+        setTimeout(() => span.remove(), 800);
+      }
+    }
+
+    // ===== MULTI-DRAG WIRES =====
+    const wireMascot = document.getElementById('wireMascot');
+    const sparkGroup = document.getElementById('sparkGroup');
+    const promptText = document.getElementById('promptText');
+    const leftPlugGroup = document.getElementById('leftPlugGroup');
+    const rightPlugGroup = document.getElementById('rightPlugGroup');
+    const leftWirePath = document.getElementById('leftWirePath');
+    const rightWirePath = document.getElementById('rightWirePath');
+
+    let isConnected = false;
+    let dragTarget = null;
+    
+    const plugState = {
+      left: { x: 45, y: 40 },
+      right: { x: 115, y: 40 }
+    };
+
+    function getMousePosition(evt) {
+      const CTM = wireMascot.getScreenCTM();
+      if (evt.touches) evt = evt.touches[0];
+      return {
+        x: (evt.clientX - CTM.e) / CTM.a,
+        y: (evt.clientY - CTM.f) / CTM.d
+      };
+    }
+
+    [ {el: leftPlugGroup, side: 'left'}, {el: rightPlugGroup, side: 'right'} ].forEach(plug => {
+      plug.el.addEventListener('mousedown', () => dragTarget = plug.side);
+      plug.el.addEventListener('touchstart', (e) => {
+        dragTarget = plug.side;
+        e.preventDefault();
+      }, {passive: false});
+    });
+
+    window.addEventListener('mousemove', handleMultiDrag);
+    window.addEventListener('touchmove', handleMultiDrag, {passive: false});
+    window.addEventListener('mouseup', () => dragTarget = null);
+    window.addEventListener('touchend', () => dragTarget = null);
+
+    function handleMultiDrag(e) {
+      if (!dragTarget || isConnected) return;
+      
+      const pos = getMousePosition(e);
+      const nx = Math.max(10, Math.min(150, pos.x));
+      const ny = Math.max(10, Math.min(130, pos.y));
+      
+      // Update State
+      plugState[dragTarget] = { x: nx, y: ny };
+      
+      // Update Visuals
+      const group = dragTarget === 'left' ? leftPlugGroup : rightPlugGroup;
+      const path = dragTarget === 'left' ? leftWirePath : rightWirePath;
+      const startX = dragTarget === 'left' ? 15 : 145;
+
+      [...group.children].forEach(c => {
+        c.setAttribute('cx', nx);
+        c.setAttribute('cy', ny);
+      });
+      path.setAttribute('d', `M ${startX} 100 L ${startX} 65 Q ${startX} ${ny} ${nx} ${ny}`);
+
+      // Distance check between the two plugs
+      const dx = plugState.left.x - plugState.right.x;
+      const dy = plugState.left.y - plugState.right.y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      
+      if (dist < 30) {
+        snapBoth();
+      }
+    }
+
+    function snapBoth() {
+      if (isConnected) return;
+      isConnected = true;
+      dragTarget = null;
+
+      const midX = (plugState.left.x + plugState.right.x) / 2;
+      const midY = (plugState.left.y + plugState.right.y) / 2;
+
+      // Lock positions
+      [ {g: leftPlugGroup, p: leftWirePath, sx: 15}, {g: rightPlugGroup, p: rightWirePath, sx: 145} ].forEach(set => {
+        [...set.g.children].forEach(c => {
+          c.setAttribute('cx', midX);
+          c.setAttribute('cy', midY);
+        });
+        set.p.setAttribute('d', `M ${set.sx} 100 L ${set.sx} 65 Q ${set.sx} ${midY} ${midX} ${midY}`);
+      });
+
+      // Spark
+      sparkGroup.setAttribute('transform', `translate(${midX - 80}, ${midY - 40})`);
+      sparkGroup.classList.add('anim-spark');
+      buddyWrapper.classList.add('tapped', 'surprised');
+      
+      promptText.textContent = "CONNECTED!";
+      promptText.setAttribute('fill', '#4caf50');
+
+      setTimeout(() => retryConnection(), 1200);
+    }
+
+    // Tap reactions (on body only)
+    let tapCount = 0;
+    const expressions = ['happy', 'surprised', 'dizzy'];
+    buddyWrapper.addEventListener('click', (e) => {
+      if (dragTarget || isConnected) return;
+      const rect = buddyWrapper.getBoundingClientRect();
+      const relY = (e.clientY - rect.top) / rect.height;
+      if (relY < 0.3) return;
+
+      const exp = expressions[tapCount++ % expressions.length];
+      buddyWrapper.classList.remove('happy', 'surprised', 'dizzy', 'tapped');
+      void buddyWrapper.offsetWidth; 
+      buddyWrapper.classList.add('tapped', exp);
+      spawnEmojiBurst(exp);
+      setTimeout(() => buddyWrapper.classList.remove('tapped', exp), 800);
+    });
+
+    // Particles
+    const parts = document.getElementById('particles');
+    function createP() {
+      const p = document.createElement('div');
+      p.className = `particle ${Math.random() > 0.6 ? 'pink' : 'purple'}`;
+      p.style.left = Math.random() * 100 + '%';
+      p.style.width = p.style.height = (Math.random()*4+2)+'px';
+      p.style.animationDuration = (Math.random()*8+8)+'s';
+      parts.appendChild(p);
+      setTimeout(() => p.remove(), 16000);
+    }
+    for(let i=0; i<15; i++) setTimeout(createP, i*500);
+    setInterval(createP, 2000);
+
+    window.addEventListener('online', () => retryConnection());
+  </script>
+</body>
+</html>

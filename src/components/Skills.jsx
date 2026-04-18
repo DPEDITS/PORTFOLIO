@@ -35,6 +35,7 @@ const Skills = () => {
                         <div className='skill-bx'>
                             <h2>Skills & Expertise</h2>
                             <p>
+                                At DPEDITS, I focus on delivering high-quality digital solutions. 
                                 I have successfully completed training in the MERN stack and DevOps, 
                                 developing solid skills in full-stack web development, cloud deployment, and automation.
                             </p>

@@ -52,9 +52,12 @@ export const Banner = () => {
                         <a href="/resume.pdf" download="Debashish_Parida_Resume.pdf" className="banner-resume-btn">
                             <Download size={22} /> Download Resume
                         </a>
+                        <span style={{ visibility: 'hidden', position: 'absolute', height: 0, width: 0 }}>
+                            Debashish Parida, DPEDITS, DPEDITS29, DP_EDITS29 portfolio
+                        </span>
                     </Col>
                     <Col xs={12} md={6} xl={5}>
-                        <img src={headerImg} alt="Debashish Parida - Web Developer and Video Editor" />
+                        <img src={headerImg} alt="Debashish Parida (DPEDITS) - MERN Stack Developer & Video Editor" />
                     </Col>
                 </Row>
             </Container>

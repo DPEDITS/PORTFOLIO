@@ -31,7 +31,7 @@ function Navbarweb() {
         <Navbar expand="lg" className={scrolled ? "scrolled" : ""}>
             <Container>
                 <Navbar.Brand href="#home">
-                    <img src={logo} alt="LOGO" className="navbar-logo" />
+                    <img src={logo} alt="Debashish Parida (DPEDITS)" className="navbar-logo" />
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav">
                     <span className='navbar-toggler-icon'></span>
