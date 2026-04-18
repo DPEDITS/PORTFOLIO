@@ -6,10 +6,10 @@ import meter1 from '../assets/img/meter1.svg'
 import meter2 from '../assets/img/meter2.svg'
 import meter3 from '../assets/img/meter3.svg'
 import colorSharp from '../assets/img/color-sharp.png'
+
 const Skills = () => {
     const responsive = {
         superLargeDesktop: {
-            // the naming can be any, depends on you.
             breakpoint: { max: 4000, min: 3000 },
             items: 5
         },
@@ -26,32 +26,33 @@ const Skills = () => {
             items: 1
         }
     };
+
     return (
         <section className='skill' id='skills'>
             <Container>
                 <Row>
                     <Col>
                         <div className='skill-bx'>
-                            <h2>Skills</h2>
+                            <h2>Skills & Expertise</h2>
                             <p>
                                 I have successfully completed training in the MERN stack and DevOps, 
                                 developing solid skills in full-stack web development, cloud deployment, and automation.
                             </p>
-                            <Carousel responsive={responsive} infinite={true} className='skill-slider'>
+                            <Carousel responsive={responsive} infinite={true} className='skill-slider' autoPlay={true} autoPlaySpeed={3000}>
                                 <div className='item'>
-                                <img src={meter1} alt="Web Development Skill Level - Debashish Parida"/>
+                                    <img src={meter1} alt="Web Development Skill Level - Debashish Parida" />
                                     <h5>Web Development</h5>
                                 </div>
                                 <div className='item'>
-                                    <img src={meter2} alt="Devops & Cloud Automation"/>
-                                    <h5>DevOps & Cloud Automation</h5>
+                                    <img src={meter2} alt="DevOps & Cloud Automation" />
+                                    <h5>DevOps & Cloud</h5>
                                 </div>
                                 <div className='item'>
-                                    <img src={meter3} alt="Logo Deign"/>
-                                    <h5>Logo Deisgn</h5>
+                                    <img src={meter3} alt="Logo Design" />
+                                    <h5>Logo Design</h5>
                                 </div>
                                 <div className='item'>
-                                    <img src={meter2} alt="Web Designer"/>
+                                    <img src={meter2} alt="Web Designer" />
                                     <h5>Web Designer</h5>
                                 </div>
                             </Carousel>
@@ -59,8 +60,7 @@ const Skills = () => {
                     </Col>
                 </Row>
             </Container>
-            <img className='background-image-left' src={colorSharp}/>
-           
+            <img className='background-image-left' src={colorSharp} alt="" />
         </section>
     )
 }

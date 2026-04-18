@@ -1,6 +1,6 @@
-import {useState,useEffect} from 'react';
-import {Container,Row,Col} from "react-bootstrap";
-import {ArrowRightCircle} from "react-bootstrap-icons";
+import { useState, useEffect } from 'react';
+import { Container, Row, Col } from "react-bootstrap";
+import { Download } from "react-bootstrap-icons";
 import headerImg from '../assets/img/header-img.svg';
 
 export const Banner = () => {
@@ -44,17 +44,17 @@ export const Banner = () => {
             <Container>
                 <Row className="align-items-center">
                     <Col xs={12} md={6} xl={7}>
-                        <span className="tagline">Welcome To My Portfolio</span>
-                        <h1>{`Hi I'm Debashish , `}<span className="wrap">{text}</span></h1>
+                        <span className="tagline">✦ Welcome To My Portfolio</span>
+                        <h1>{`Hi, I'm Debashish`}<br /><span className="txt-rotate"><span className="wrap">{text}</span></span></h1>
                         <p>I'm a versatile professional, combining creativity and technical skills as a 
                             video editor and web designer. Alongside my passion for crafting 
                             digital experiences, I'm an avid gamer, constantly exploring new realms.</p>
-                        <button onClick={() =>{const section = document.querySelector('#connect');
-                        if (section) section.scrollIntoView({ behavior: 'smooth' });
-                        }}>Let's Connect <ArrowRightCircle size={25}/></button>
+                        <a href="/resume.pdf" download="Debashish_Parida_Resume.pdf" className="banner-resume-btn">
+                            <Download size={22} /> Download Resume
+                        </a>
                     </Col>
                     <Col xs={12} md={6} xl={5}>
-                    <img src={headerImg} alt="Debashish Parida - Web Developer and Video Editor" />
+                        <img src={headerImg} alt="Debashish Parida - Web Developer and Video Editor" />
                     </Col>
                 </Row>
             </Container>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import contactImg from '../assets/img/contact-img.svg';
 
@@ -12,9 +12,8 @@ const Contact = () => {
   };
 
   const [formDetails, setFormDetails] = useState(formInitialDetails);
-  const [buttonText, setButtonText] = useState('Send');
+  const [buttonText, setButtonText] = useState('Send Message');
   const [status, setStatus] = useState({});
-  const [result, setResult] = useState("");
 
   const onFormUpdate = (category, value) => {
     setFormDetails({
@@ -44,15 +43,13 @@ const Contact = () => {
     const data = await response.json();
 
     if (data.success) {
-      setResult("Form Submitted Successfully");
-      setButtonText("Send");
+      setButtonText("Send Message");
       event.target.reset();
       setFormDetails(formInitialDetails);
-      setStatus({ success: true, message: "Form submitted successfully!" });
+      setStatus({ success: true, message: "Message sent successfully! I'll get back to you soon." });
     } else {
       console.log("Error", data);
-      setResult(data.message);
-      setButtonText("Send");
+      setButtonText("Send Message");
       setStatus({ success: false, message: "Something went wrong, please try again." });
     }
   };
@@ -69,54 +66,58 @@ const Contact = () => {
             <form onSubmit={handleSubmit}>
               <Row>
                 <Col sm={6} className='px-1'>
-                  <input 
-                    type='text' 
-                    value={formDetails.firstName} 
-                    placeholder='First Name' 
-                    onChange={(e) => onFormUpdate('firstName', e.target.value)} 
-                    name="first_name" // Make sure to add a name attribute
+                  <input
+                    type='text'
+                    value={formDetails.firstName}
+                    placeholder='First Name'
+                    onChange={(e) => onFormUpdate('firstName', e.target.value)}
+                    name="first_name"
+                    required
                   />
                 </Col>
                 <Col sm={6} className='px-1'>
-                  <input 
-                    type='text' 
-                    value={formDetails.lastName} 
-                    placeholder='Last Name' 
-                    onChange={(e) => onFormUpdate('lastName', e.target.value)} 
-                    name="last_name" // Make sure to add a name attribute
+                  <input
+                    type='text'
+                    value={formDetails.lastName}
+                    placeholder='Last Name'
+                    onChange={(e) => onFormUpdate('lastName', e.target.value)}
+                    name="last_name"
+                    required
                   />
                 </Col>
                 <Col sm={6} className='px-1'>
-                  <input 
-                    type='email' 
-                    value={formDetails.email} 
-                    placeholder='E-mail' 
-                    onChange={(e) => onFormUpdate('email', e.target.value)} 
-                    name="email" // Make sure to add a name attribute
+                  <input
+                    type='email'
+                    value={formDetails.email}
+                    placeholder='Email Address'
+                    onChange={(e) => onFormUpdate('email', e.target.value)}
+                    name="email"
+                    required
                   />
                 </Col>
                 <Col sm={6} className='px-1'>
-                  <input 
-                    type='tel' 
-                    value={formDetails.phone} 
-                    placeholder='+91 12345 67890' 
-                    onChange={(e) => onFormUpdate('phone', e.target.value)} 
-                    name="phone" // Make sure to add a name attribute
+                  <input
+                    type='tel'
+                    value={formDetails.phone}
+                    placeholder='Phone Number'
+                    onChange={(e) => onFormUpdate('phone', e.target.value)}
+                    name="phone"
                   />
                 </Col>
                 <Col>
-                  <textarea 
-                    rows='6' 
-                    value={formDetails.message} 
-                    placeholder='Message' 
+                  <textarea
+                    rows='6'
+                    value={formDetails.message}
+                    placeholder='Your Message...'
                     onChange={(e) => onFormUpdate('message', e.target.value)}
-                    name="message" // Make sure to add a name attribute
+                    name="message"
+                    required
                   ></textarea>
                   <button type='submit'><span>{buttonText}</span></button>
                 </Col>
                 {status.message && (
                   <Col>
-                    <p className={status.success === false ? 'danger' : 'success'}>{status.message}</p>
+                    <p className={status.success === false ? 'danger' : 'success'} style={{ marginTop: '16px', fontSize: '15px' }}>{status.message}</p>
                   </Col>
                 )}
               </Row>
