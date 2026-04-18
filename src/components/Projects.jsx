@@ -11,6 +11,7 @@ import sponsorsil from '../assets/img/sponsorsil.jpg'
 import quickchat from '../assets/img/quickchat.png'
 import fularani from '../assets/img/fularani.png'
 import ProjectsCard from './ProjectsCard'
+import CertificateCard from './CertificateCard'
 import colorSharp2 from '../assets/img/color-sharp2.png'
 
 const Projects = () => {
@@ -96,7 +97,7 @@ const Projects = () => {
                     {
                       certificates.map((project, index) => {
                         return (
-                          <ProjectsCard key={index} {...project} />
+                          <CertificateCard key={index} {...project} />
                         )
                       })
                     }
