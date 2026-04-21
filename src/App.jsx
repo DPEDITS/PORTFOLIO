@@ -5,6 +5,7 @@ import { Banner } from './components/Banner';
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Contact from './components/Contact';
+import GithubStats from './components/GithubStats';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
     <Banner/>
     <Skills/>
     <Projects/>
+    <GithubStats/>
     <Contact/>
     </>
   )

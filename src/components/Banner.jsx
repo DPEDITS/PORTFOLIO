@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
 import { Download } from "react-bootstrap-icons";
 import headerImg from '../assets/img/header-img.svg';
+import Story from './Story';
 
 export const Banner = () => {
     const [loopNum, setLoopNum] = useState(0);
@@ -52,12 +53,13 @@ export const Banner = () => {
                         <a href="/resume.pdf" download="Debashish_Parida_Resume.pdf" className="banner-resume-btn">
                             <Download size={22} /> Download Resume
                         </a>
+                        <Story />
                         <span style={{ visibility: 'hidden', position: 'absolute', height: 0, width: 0 }}>
                             Debashish Parida, DPEDITS, DPEDITS29, DP_EDITS29 portfolio
                         </span>
                     </Col>
                     <Col xs={12} md={6} xl={5}>
-                        <img src={headerImg} alt="Debashish Parida (DPEDITS) - MERN Stack Developer & Video Editor" />
+                        <img className="banner-img" src={headerImg} alt="Debashish Parida (DPEDITS) - MERN Stack Developer & Video Editor" />
                     </Col>
                 </Row>
             </Container>

@@ -446,7 +446,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   50% { box-shadow: 0 8px 35px rgba(124, 58, 237, 0.5); }
 }
 
-.banner img {
+.banner-img {
   animation: float 6s ease-in-out infinite;
   filter: drop-shadow(0 20px 40px rgba(124, 58, 237, 0.2));
 }
@@ -972,3 +972,146 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 .banner h1 { animation-delay: 0.1s; }
 .banner p { animation-delay: 0.2s; }
 .banner .banner-resume-btn { animation-delay: 0.3s; }
+
+/************ Github Stats ************/
+.github-stats {
+    padding: 60px 0;
+    position: relative;
+    background: var(--bg-primary);
+    overflow: hidden;
+}
+
+.github-stats .section-head h2 {
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 15px;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.github-stats .section-head p {
+    color: var(--text-secondary);
+    font-size: 16px;
+    max-width: 500px;
+    margin: 0 auto 40px auto;
+}
+
+.github-stats .github-bx {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    padding: 40px 30px;
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+    max-width: 950px;
+    margin: 0 auto;
+}
+
+.github-stats .github-bx::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent-gradient);
+}
+
+.github-content-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 16px;
+}
+
+.github-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: var(--transition-smooth);
+    position: relative;
+}
+
+.github-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(168, 85, 247, 0.1), transparent 70%);
+    opacity: 0;
+    transition: var(--transition-smooth);
+    border-radius: inherit;
+}
+
+.github-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(168, 85, 247, 0.4);
+    box-shadow: var(--shadow-glow);
+}
+
+.github-card:hover::before {
+    opacity: 1;
+}
+
+.github-card img {
+    width: 100%;
+    height: auto;
+    z-index: 1;
+}
+
+.github-card.main-stats {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.github-card.languages {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.github-card.streak {
+    grid-column: 1 / span 2;
+    grid-row: 2;
+}
+
+.github-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    padding: 14px 28px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    transition: var(--transition-smooth);
+    text-decoration: none !important;
+}
+
+.github-btn:hover {
+    background: var(--accent-gradient);
+    border-color: transparent;
+    color: #fff !important;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(168, 85, 247, 0.4);
+}
+
+@media (max-width: 991px) {
+    .github-content-grid {
+        grid-template-columns: 1fr;
+    }
+    .github-card.main-stats, .github-card.languages, .github-card.streak {
+        grid-column: 1;
+        grid-row: auto;
+    }
+}

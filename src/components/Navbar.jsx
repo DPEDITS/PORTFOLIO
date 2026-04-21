@@ -41,6 +41,7 @@ function Navbarweb() {
                         <Nav.Link href="#home" className={activeLink === 'home' ? 'active navbar-link' : 'navbar-link'} onClick={() => OnUpdateActiveLink('home')}>Home</Nav.Link>
                         <Nav.Link href="#skills" className={activeLink === 'skills' ? 'active navbar-link' : 'navbar-link'} onClick={() => OnUpdateActiveLink('skills')}>Skills</Nav.Link>
                         <Nav.Link href="#projects" className={activeLink === 'projects' ? 'active navbar-link' : 'navbar-link'} onClick={() => OnUpdateActiveLink('projects')}>Achievements</Nav.Link>
+                        <Nav.Link href="#github" className={activeLink === 'github' ? 'active navbar-link' : 'navbar-link'} onClick={() => OnUpdateActiveLink('github')}>GitHub</Nav.Link>
                         <Nav.Link href="#connect" className={activeLink === 'connect' ? 'active navbar-link' : 'navbar-link'} onClick={() => OnUpdateActiveLink('connect')}>Contact</Nav.Link>
                     </Nav>
                     <span className='navbar-text'>
