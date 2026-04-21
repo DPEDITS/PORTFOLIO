@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import contactImg from '../assets/img/contact-img.svg';
 
@@ -14,6 +14,30 @@ const Contact = () => {
   const [formDetails, setFormDetails] = useState(formInitialDetails);
   const [buttonText, setButtonText] = useState('Send Message');
   const [status, setStatus] = useState({});
+  const [canSend, setCanSend] = useState(true);
+  const [timeLeft, setTimeLeft] = useState(null);
+
+  // Check rate limit on page load and every minute
+  useEffect(() => {
+    const checkLimit = () => {
+      const lastSent = Number(localStorage.getItem('lastEmailSent'));
+      const now = Date.now();
+      const twelveHours = 12 * 60 * 60 * 1000;
+      
+      if (lastSent && (now - lastSent) < twelveHours) {
+        setCanSend(false);
+        const hours = Math.ceil((twelveHours - (now - lastSent)) / (60 * 60 * 1000));
+        setTimeLeft(hours);
+      } else {
+        setCanSend(true);
+        setTimeLeft(null);
+      }
+    };
+
+    checkLimit();
+    const interval = setInterval(checkLimit, 60000); // Update every minute
+    return () => clearInterval(interval);
+  }, []);
 
   const onFormUpdate = (category, value) => {
     setFormDetails({
@@ -24,6 +48,46 @@ const Contact = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!canSend) return;
+
+    // Double-check rate limit on submit
+    const lastSent = Number(localStorage.getItem('lastEmailSent'));
+    const now = Date.now();
+    const twelveHours = 12 * 60 * 60 * 1000;
+
+    if (lastSent && (now - lastSent) < twelveHours) {
+      const hoursRemaining = Math.ceil((twelveHours - (now - lastSent)) / (60 * 60 * 1000));
+      setCanSend(false);
+      setStatus({ 
+        success: false, 
+        message: `Rate limit active. Please wait ${hoursRemaining} hours.` 
+      });
+      return;
+    }
+
+    // Set loading state and lock form immediately
+    setCanSend(false);
+    setButtonText("Sending...");
+
+    // Professional Email Validation
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(formDetails.email)) {
+      setCanSend(true); // Unlock so they can fix the error
+      setStatus({ success: false, message: "Please enter a valid and deliverable email address." });
+      setButtonText("Send Message");
+      return;
+    }
+
+    // Block common fake/disposable domains
+    const fakeDomains = ['test.com', 'example.com', 'mailinator.com', 'tempmail.com'];
+    const domain = formDetails.email.split('@')[1].toLowerCase();
+    if (fakeDomains.includes(domain)) {
+      setCanSend(true); // Unlock so they can fix the error
+      setStatus({ success: false, message: "Please use a real personal or business email address." });
+      setButtonText("Send Message");
+      return;
+    }
+
     setButtonText("Sending...");
     const formData = new FormData();
 
@@ -35,24 +99,36 @@ const Contact = () => {
     formData.append("phone", formDetails.phone);
     formData.append("message", formDetails.message);
 
-    const response = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      body: formData
-    });
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (data.success) {
+      if (data.success) {
+        setButtonText("Send Message");
+        event.target.reset();
+        setFormDetails(formInitialDetails);
+        // Save timestamp and lock form
+        localStorage.setItem('lastEmailSent', Date.now().toString());
+        setCanSend(false);
+        setStatus({ success: true, message: "Message sent successfully! I'll get back to you soon." });
+      } else {
+        console.log("Error", data);
+        setButtonText("Send Message");
+        setCanSend(true); // Unlock on server error so they can retry
+        setStatus({ success: false, message: data.message || "Something went wrong, please try again." });
+      }
+    } catch (error) {
+      console.log("Fetch Error", error);
       setButtonText("Send Message");
-      event.target.reset();
-      setFormDetails(formInitialDetails);
-      setStatus({ success: true, message: "Message sent successfully! I'll get back to you soon." });
-    } else {
-      console.log("Error", data);
-      setButtonText("Send Message");
-      setStatus({ success: false, message: "Something went wrong, please try again." });
+      setCanSend(true);
+      setStatus({ success: false, message: "Network error. Please check your connection and try again." });
     }
   };
+
 
   return (
     <section className='contact' id='connect'>
@@ -113,7 +189,9 @@ const Contact = () => {
                     name="message"
                     required
                   ></textarea>
-                  <button type='submit'><span>{buttonText}</span></button>
+                  <button type='submit' disabled={!canSend}>
+                    <span>{canSend ? buttonText : `Locked (${timeLeft}h left)`}</span>
+                  </button>
                 </Col>
                 {status.message && (
                   <Col>

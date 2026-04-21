@@ -891,6 +891,14 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   box-shadow: 0 12px 40px rgba(124, 58, 237, 0.4);
 }
 
+.contact form button:disabled {
+  background: var(--text-muted);
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
 /************ Footer Css ************/
 .footer {
   background: var(--bg-secondary);
