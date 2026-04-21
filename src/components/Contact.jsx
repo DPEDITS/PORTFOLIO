@@ -16,6 +16,7 @@ const Contact = () => {
   const [status, setStatus] = useState({});
   const [canSend, setCanSend] = useState(true);
   const [timeLeft, setTimeLeft] = useState(null);
+  const [isSending, setIsSending] = useState(false);
 
   // Check rate limit on page load and every minute
   useEffect(() => {
@@ -58,6 +59,7 @@ const Contact = () => {
     if (lastSent && (now - lastSent) < twelveHours) {
       const hoursRemaining = Math.ceil((twelveHours - (now - lastSent)) / (60 * 60 * 1000));
       setCanSend(false);
+      setTimeLeft(hoursRemaining);
       setStatus({ 
         success: false, 
         message: `Rate limit active. Please wait ${hoursRemaining} hours.` 
@@ -65,14 +67,14 @@ const Contact = () => {
       return;
     }
 
-    // Set loading state and lock form immediately
-    setCanSend(false);
+    // Set loading state
+    setIsSending(true);
     setButtonText("Sending...");
 
     // Professional Email Validation
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(formDetails.email)) {
-      setCanSend(true); // Unlock so they can fix the error
+      setIsSending(false); // Unlock so they can fix the error
       setStatus({ success: false, message: "Please enter a valid and deliverable email address." });
       setButtonText("Send Message");
       return;
@@ -82,7 +84,7 @@ const Contact = () => {
     const fakeDomains = ['test.com', 'example.com', 'mailinator.com', 'tempmail.com'];
     const domain = formDetails.email.split('@')[1].toLowerCase();
     if (fakeDomains.includes(domain)) {
-      setCanSend(true); // Unlock so they can fix the error
+      setIsSending(false); // Unlock so they can fix the error
       setStatus({ success: false, message: "Please use a real personal or business email address." });
       setButtonText("Send Message");
       return;
@@ -108,23 +110,25 @@ const Contact = () => {
       const data = await response.json();
 
       if (data.success) {
+        setIsSending(false);
         setButtonText("Send Message");
         event.target.reset();
         setFormDetails(formInitialDetails);
         // Save timestamp and lock form
         localStorage.setItem('lastEmailSent', Date.now().toString());
         setCanSend(false);
+        setTimeLeft(12); // Set initial lock time
         setStatus({ success: true, message: "Message sent successfully! I'll get back to you soon." });
       } else {
         console.log("Error", data);
+        setIsSending(false);
         setButtonText("Send Message");
-        setCanSend(true); // Unlock on server error so they can retry
         setStatus({ success: false, message: data.message || "Something went wrong, please try again." });
       }
     } catch (error) {
       console.log("Fetch Error", error);
+      setIsSending(false);
       setButtonText("Send Message");
-      setCanSend(true);
       setStatus({ success: false, message: "Network error. Please check your connection and try again." });
     }
   };
@@ -189,8 +193,8 @@ const Contact = () => {
                     name="message"
                     required
                   ></textarea>
-                  <button type='submit' disabled={!canSend}>
-                    <span>{canSend ? buttonText : `Locked (${timeLeft}h left)`}</span>
+                  <button type='submit' disabled={!canSend || isSending}>
+                    <span>{isSending ? "Sending..." : (canSend ? buttonText : `Locked (${timeLeft}h left)`)}</span>
                   </button>
                 </Col>
                 {status.message && (
