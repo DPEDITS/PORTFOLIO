@@ -4,6 +4,7 @@ const OFFLINE_URL = '/offline.html';
 const assetsToCache = [
   OFFLINE_URL,
   '/logo.png',
+  '/vite.svg',
 ];
 
 self.addEventListener('install', (event) => {
@@ -31,6 +32,14 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+  // Bypass service worker for external APIs like GitHub stats
+  if (event.request.url.includes('github-readme-stats') || 
+      event.request.url.includes('github-readme-streak-stats') ||
+      event.request.url.includes('demolab.com') ||
+      event.request.url.includes('denvercoder1')) {
+    return;
+  }
+
   if (event.request.mode === 'navigate') {
     event.respondWith(
       fetch(event.request).catch(() => {
@@ -45,3 +54,4 @@ self.addEventListener('fetch', (event) => {
     );
   }
 });
+

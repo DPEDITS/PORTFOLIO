@@ -20,19 +20,19 @@ const GithubStats = () => {
                             <div className="github-content-grid">
                                 <div className="github-card main-stats">
                                     <img 
-                                        src={`https://github-readme-stats.vercel.app/api?username=${username}&show_icons=true&theme=transparent&title_color=fff&icon_color=a855f7&text_color=94a3b8&bg_color=00000000&hide_border=true&rank_icon=github`} 
+                                        src={`https://github-readme-stats-denvercoder1.vercel.app/api?username=${username}&show_icons=true&theme=transparent&title_color=fff&icon_color=a855f7&text_color=94a3b8&bg_color=00000000&hide_border=true&rank_icon=github`} 
                                         alt="GitHub Stats" 
                                     />
                                 </div>
                                 <div className="github-card languages">
                                     <img 
-                                        src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${username}&layout=compact&theme=transparent&title_color=fff&icon_color=a855f7&text_color=94a3b8&bg_color=00000000&hide_border=true`} 
+                                        src={`https://github-readme-stats-denvercoder1.vercel.app/api/top-langs/?username=${username}&layout=compact&theme=transparent&title_color=fff&icon_color=a855f7&text_color=94a3b8&bg_color=00000000&hide_border=true`} 
                                         alt="Top Languages" 
                                     />
                                 </div>
                                 <div className="github-card streak">
                                     <img 
-                                        src={`https://github-readme-streak-stats.herokuapp.com/?user=${username}&theme=transparent&hide_border=true&stroke=00000000&background=00000000&ring=a855f7&fire=a855f7&currStreakNum=fff&sideNums=fff&sideLabels=94a3b8&dates=94a3b8`} 
+                                        src={`https://streak-stats.demolab.com/?user=${username}&theme=transparent&hide_border=true&stroke=00000000&background=00000000&ring=a855f7&fire=a855f7&currStreakNum=fff&sideNums=fff&sideLabels=94a3b8&dates=94a3b8`} 
                                         alt="GitHub Streak" 
                                     />
                                 </div>
