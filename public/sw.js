@@ -1,4 +1,4 @@
-const CACHE_NAME = 'portfolio-offline-v1';
+const CACHE_NAME = 'portfolio-offline-v2';
 const OFFLINE_URL = '/offline.html';
 
 const assetsToCache = [
@@ -43,13 +43,20 @@ self.addEventListener('fetch', (event) => {
   if (event.request.mode === 'navigate') {
     event.respondWith(
       fetch(event.request).catch(() => {
-        return caches.match(OFFLINE_URL);
+        return caches.match(OFFLINE_URL) || new Response('Offline content not available', {
+          status: 503,
+          statusText: 'Service Unavailable',
+          headers: new Headers({ 'Content-Type': 'text/plain' })
+        });
       })
     );
   } else {
     event.respondWith(
       caches.match(event.request).then((response) => {
-        return response || fetch(event.request);
+        return response || fetch(event.request).catch(() => {
+          // If both cache and network fail, return nothing or a placeholder for images
+          return null; 
+        });
       })
     );
   }
