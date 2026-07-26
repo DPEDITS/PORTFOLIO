@@ -3,6 +3,7 @@ import { Col, Container, Row, Tab } from 'react-bootstrap'
 import Nav from 'react-bootstrap/Nav';
 import mernstack from '../assets/img/mern-stack.png'
 import mernstack1 from '../assets/img/mern-stack1.png'
+import jobsim from '../assets/img/jobsim.png'
 import devops from '../assets/img/devops.png'
 import spotify from '../assets/img/spotifyclone.png'
 import gdg from '../assets/img/GDG.png'
@@ -25,6 +26,11 @@ const Projects = () => {
       title: "INFOSYS SPRINGBOARD",
       description: "REACTJS",
       imgUrl: mernstack1,
+    },
+    {
+      title: "TATA CONSULTANCY SERVICES",
+      description: "CyberSecurity Analyst Job Simulation",
+      imgUrl: jobsim,
     },
     {
       title: "INGENIOUS TECHWORLD",
